@@ -1,0 +1,83 @@
+Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+
+Flutter/Dart
+/build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+
+Sensitive Firebase files
+This is the most important line for security
+/android/app/google-services.json
+
+IDEs
+.idea/
+.vscode/
+*.iml
+
+
+### **Step 2: Initialize a Git Repository**
+
+Now, let's turn your project folder into a Git repository.
+
+1.  Open your terminal in the main root folder of your project.
+2.  Run this command:
+    ```bash
+    git init
+    ```
+    This initializes an empty Git repository in your project folder.
+
+### **Step 3: Add and Commit Your Files**
+
+Next, we'll add all your safe files to a "commit," which is like a snapshot or a saved version of your project.
+
+1.  In the same terminal, run this command to add all files (except those in `.gitignore`) to the staging area:
+    ```bash
+    git add .
+    ```
+2.  Now, commit the files with a descriptive message:
+    ```bash
+    git commit -m "Initial commit of Skill Swap Flutter project"
+    ```
+
+### **Step 4: Create a New Repository on GitHub**
+
+1.  Go to [GitHub.com](https://github.com) and log in.
+2.  In the top-right corner, click the `+` icon and select **New repository**.
+3.  Give your repository a name (e.g., `skill_swap_app`), add an optional description, and make sure it is set to **Public**.
+4.  Click the **"Create repository"** button.
+
+
+
+After you create it, GitHub will show you a page with some commands. The most important thing you need is the **repository URL**. It will look like this: `https://github.com/your-username/skill_swap_app.git`. Copy this URL.
+
+### **Step 5: Connect and Push to GitHub**
+
+Finally, let's connect your local project to the new repository on GitHub and upload your files.
+
+1.  Go back to your terminal.
+2.  Run this command, replacing `<URL>` with the repository URL you just copied:
+    ```bash
+    git remote add origin <URL>
+    ```
+    This tells your local repository where its "home" on the internet is.
+
+3.  (Optional but recommended) Rename your main branch to `main`, which is the new standard:
+    ```bash
+    git branch -M main
+    ```
+
+4.  Push your commit to GitHub:
+    ```bash
+    git push -u origin main
