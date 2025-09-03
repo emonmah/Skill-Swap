@@ -16,11 +16,9 @@ import 'package:sillswap/screens/matching_screen.dart';
 import 'package:sillswap/screens/chat_screen.dart';
 
 void main() async {
-  // Ensure Flutter is ready
+
   WidgetsFlutterBinding.ensureInitialized();
   
-  // 🔹 2. Initialize Firebase using the secure, platform-specific options
-  // This single line of code works for both web and mobile automatically.
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
