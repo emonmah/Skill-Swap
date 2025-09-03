@@ -71,3 +71,5 @@ flutter pub get
 You can now launch the app on your connected device, emulator, or in a web browser.
 
 flutter run
+
+APK Download Link: https://drive.google.com/file/d/1-O_t67aa6VxdXyfqtzJQT7x3se9jXb4X/view?usp=sharing
