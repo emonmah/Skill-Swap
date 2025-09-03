@@ -38,10 +38,9 @@ class FollowsScreen extends StatelessWidget {
                   .doc(userId)
                   .collection('following')
                   .snapshots(),
-              // ✅ Pass a flag to show buttons on this list
+
               isFollowingList: true,
             ),
-            // "Followers" list tab
             _FollowList(
               currentUserId: userId,
               userCollectionStream: FirebaseFirestore.instance
@@ -49,7 +48,7 @@ class FollowsScreen extends StatelessWidget {
                   .doc(userId)
                   .collection('followers')
                   .snapshots(),
-              // ✅ Pass a flag to hide buttons on this list
+             
               isFollowingList: false,
             ),
           ],
@@ -70,17 +69,17 @@ class _FollowList extends StatelessWidget {
     required this.isFollowingList,
   });
 
-  // ✅ NEW: Function to handle unfollowing a user
+
   void _unfollowUser(BuildContext context, String otherUserId) async {
     final firestore = FirebaseFirestore.instance;
-    // Remove the other user from the current user's "following" subcollection
+   
     await firestore
         .collection('users')
         .doc(currentUserId)
         .collection('following')
         .doc(otherUserId)
         .delete();
-    // Remove the current user from the other user's "followers" subcollection
+    
     await firestore
         .collection('users')
         .doc(otherUserId)
@@ -93,7 +92,7 @@ class _FollowList extends StatelessWidget {
     );
   }
 
-  // ✅ NEW: Function to start a chat with a user
+
   void _startChat(BuildContext context, String otherUserId) {
     String chatId = currentUserId.compareTo(otherUserId) < 0
         ? "${currentUserId}_${otherUserId}"
@@ -156,7 +155,7 @@ class _FollowList extends StatelessWidget {
                         : null,
                   ),
                   title: Text(userName),
-                  // ✅ UPDATED: Conditionally show buttons for the "Following" list
+                  
                   trailing: isFollowingList
                       ? Row(
                           mainAxisSize: MainAxisSize.min,
@@ -173,7 +172,7 @@ class _FollowList extends StatelessWidget {
                             ),
                           ],
                         )
-                      : null, // No buttons for the "Followers" list
+                      : null,
                 );
               },
             );

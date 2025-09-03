@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:geolocator/geolocator.dart'; // Location package removed
-// ignore: depend_on_referenced_packages
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -26,7 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Map<String, dynamic> _userData = {};
   File? _imageFile;
 
-  final String _imgbbApiKey = 'c6b582d652d7c1b536867982deab7857'; // Remember to add your API key here
+  final String _imgbbApiKey = 'c6b582d652d7c1b536867982deab7857';
 
   // Controllers for all editable fields
   late TextEditingController _nameController;
@@ -38,7 +36,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late TextEditingController _teachSkillsController;
   late TextEditingController _learnSkillsController;
 
-  // State variables for non-text fields
   int? _age;
   String? _gender;
 
@@ -153,7 +150,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       'profilePictureUrl': uploadedImageUrl ?? _userData['profilePictureUrl'],
       'age': _age,
       'gender': _gender,
-      // 'location' field is removed
       'bio': _bioController.text.trim(),
       'hobbies': _hobbiesController.text.split(',').map((e) => e.trim()).toList(),
       'occupation': _occupationController.text.trim(),
@@ -276,7 +272,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Expanded(child: _buildGenderDropdown()),
         ],),
         const SizedBox(height: 16),
-        // Update Location button removed
         _buildTextField(_teachSkillsController, 'Skills to Teach (comma-separated)'),
         _buildTextField(_learnSkillsController, 'Skills to Learn (comma-separated)'),
       ],

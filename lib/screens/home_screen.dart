@@ -4,7 +4,6 @@ import 'package:sillswap/screens/login_screen.dart';
 import 'package:sillswap/screens/profile_screen.dart';
 import 'package:sillswap/screens/matching_screen.dart';
 import 'package:sillswap/screens/chatlist_screen.dart';
-// Import the new home dashboard screen
 import 'package:sillswap/screens/user_home_view_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,7 +16,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  // The list of screens that correspond to the bottom navigation bar items
   final List<Widget> _screens = [
     const UserHomeViewScreen(), // 0: Home dashboard
     const ProfileScreen(), // 1: Profile editing
@@ -36,7 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _logout() async {
     try {
       await FirebaseAuth.instance.signOut();
-      // Use pushAndRemoveUntil to clear the navigation stack so the user can't go back
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const LoginScreen()),
@@ -54,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Skill Swap"),
-        // Prevents the automatic "back" button from appearing
+
         automaticallyImplyLeading: false,
         // Adds a logout icon button to the top-right of the app bar
         actions: [
@@ -65,17 +62,17 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      // Displays the currently selected screen from the _screens list
+
       body: _screens[_selectedIndex],
-      // The main navigation bar at the bottom of the screen
+     
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed, // Good for 4+ items
+        type: BottomNavigationBarType.fixed, 
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home), // A different icon when selected
+            activeIcon: Icon(Icons.home), 
             label: "Home",
           ),
           BottomNavigationBarItem(

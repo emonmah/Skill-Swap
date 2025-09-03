@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// Import the new screen for displaying follower/following lists
 import 'package:sillswap/screens/follows_screen.dart';
 
 class UserHomeViewScreen extends StatelessWidget {
@@ -15,7 +14,6 @@ class UserHomeViewScreen extends StatelessWidget {
       return const Center(child: Text('Not logged in.'));
     }
 
-    // This screen listens to the current user's document for real-time updates.
     return Scaffold(
       body: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance.collection('users').doc(currentUser.uid).snapshots(),
@@ -43,11 +41,10 @@ class UserHomeViewScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
 
-                // This new section displays the follower and following stats.
+        
                 _buildFollowerStats(context, currentUser.uid),
                 const Divider(height: 32),
 
-                // Skill summary cards
                 _buildSkillCard('Skills You Can Teach', skillsToTeach, Icons.school),
                 const SizedBox(height: 16),
                 _buildSkillCard('Skills You Want to Learn', skillsToLearn, Icons.lightbulb_outline),
@@ -59,18 +56,18 @@ class UserHomeViewScreen extends StatelessWidget {
     );
   }
 
-  /// Builds a Row containing tappable "Following" and "Followers" stats.
+
   Widget _buildFollowerStats(BuildContext context, String userId) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        // "Following" count that navigates to the FollowsScreen on tap.
+       
         InkWell(
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                // Opens the FollowsScreen on the "Following" tab (index 0).
+              
                 builder: (context) => FollowsScreen(userId: userId, initialIndex: 0),
               ),
             );
@@ -82,13 +79,13 @@ class UserHomeViewScreen extends StatelessWidget {
                 .collection('following'),
           ),
         ),
-        // "Followers" count that navigates to the FollowsScreen on tap.
+       
         InkWell(
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                // Opens the FollowsScreen on the "Followers" tab (index 1).
+                
                 builder: (context) => FollowsScreen(userId: userId, initialIndex: 1),
               ),
             );
@@ -104,12 +101,12 @@ class UserHomeViewScreen extends StatelessWidget {
     );
   }
 
-  /// Builds a single stat item (e.g., "10 Following").
+  
   Widget _buildStatItem(String label, CollectionReference collection) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // This StreamBuilder listens for changes in the collection size and updates the count.
+       
         StreamBuilder<QuerySnapshot>(
           stream: collection.snapshots(),
           builder: (context, snapshot) {
@@ -126,7 +123,7 @@ class UserHomeViewScreen extends StatelessWidget {
     );
   }
 
-  /// Builds a card to display a list of skills.
+
   Widget _buildSkillCard(String title, List<String> skills, IconData icon) {
     return Card(
       elevation: 2,
@@ -147,7 +144,7 @@ class UserHomeViewScreen extends StatelessWidget {
             if (skills.isEmpty)
               const Text('No skills listed yet.')
             else
-              // Use a Column to list the skills.
+             
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: skills.map((skill) => Padding(

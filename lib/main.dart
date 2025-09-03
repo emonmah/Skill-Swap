@@ -1,12 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-// 🔹 1. Import the generated Firebase options file
-// This file is created by the `flutterfire configure` command and is safe to commit.
 import 'package:sillswap/firebase_options.dart';
-
-// Import all your screen files
 import 'package:sillswap/screens/splash_screen.dart';
 import 'package:sillswap/screens/login_screen.dart';
 import 'package:sillswap/screens/signup_screen.dart';
@@ -31,8 +26,6 @@ class SkillSwapApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // This is a good way to get the user, but it will be null at startup.
-    // Screens that need the user ID should get it after login.
     final user = FirebaseAuth.instance.currentUser;
 
     return MaterialApp(
@@ -45,11 +38,9 @@ class SkillSwapApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignupScreen(),
         '/home': (context) => const HomeScreen(),
-        // Make sure this points to your main profile screen
         '/profileSetup': (context) => const ProfileScreen(), 
         '/matching': (context) => MatchingScreen(currentUserId: user?.uid ?? ''),
       },
-      // This handles passing data to the chat screen
       onGenerateRoute: (settings) {
         if (settings.name == '/chat') {
           final args = settings.arguments as Map<String, dynamic>;

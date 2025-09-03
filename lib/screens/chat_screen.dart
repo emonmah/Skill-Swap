@@ -27,7 +27,7 @@ class _ChatScreenState extends State<ChatScreen> {
     String message = _messageController.text.trim();
     _messageController.clear();
 
-    // Add message to the subcollection
+    // Add message to the collection
     await _firestore
         .collection("chats")
         .doc(widget.chatId)
@@ -39,8 +39,6 @@ class _ChatScreenState extends State<ChatScreen> {
       "timestamp": FieldValue.serverTimestamp(),
     });
 
-    // UPDATED: Update the main chat document with last message AND timestamp
-    // This is crucial for sorting the chat list correctly.
     await _firestore.collection("chats").doc(widget.chatId).set({
       "lastMessage": message,
       "timestamp": FieldValue.serverTimestamp(),
@@ -51,7 +49,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // UPDATED: The title is now a FutureBuilder to fetch user data
+       
         title: FutureBuilder<DocumentSnapshot>(
           future: _firestore.collection("users").doc(widget.otherUserId).get(),
           builder: (context, snapshot) {
@@ -60,7 +58,7 @@ class _ChatScreenState extends State<ChatScreen> {
               final userName = userData['name'] ?? 'Chat';
               final profilePicUrl = userData['profilePictureUrl'];
 
-              // Display the profile picture and name in a Row
+              
               return Row(
                 children: [
                   CircleAvatar(
@@ -96,7 +94,6 @@ class _ChatScreenState extends State<ChatScreen> {
                   return const Center(child: CircularProgressIndicator());
                 }
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  // ✅ NEW: Handle the empty state when there are no messages
                   return const Center(
                     child: Text("No messages yet. Say hello! 👋"),
                   );

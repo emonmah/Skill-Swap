@@ -78,7 +78,6 @@ class _MatchingScreenState extends State<MatchingScreen> {
   Future<void> _findMatches() async {
     setState(() => isLoading = true);
 
-    // First, get the list of users the current user is already following
     final followingSnapshot = await _firestore
         .collection('users')
         .doc(widget.currentUserId)
@@ -87,7 +86,6 @@ class _MatchingScreenState extends State<MatchingScreen> {
     
     _followedUserIds = followingSnapshot.docs.map((doc) => doc.id).toSet();
 
-    // The rest of the matching logic
     final currentUserDoc =
         await _firestore.collection('users').doc(widget.currentUserId).get();
     final currentUser = currentUserDoc.data()!;
@@ -104,10 +102,8 @@ class _MatchingScreenState extends State<MatchingScreen> {
     List<Map<String, dynamic>> tempMatches = [];
 
     for (var doc in querySnapshot.docs) {
-      // Skip the current user
       if (doc.id == widget.currentUserId) continue;
 
-      // ✅ **THE FIX IS HERE:** Skip any user who is already being followed.
       if (_followedUserIds.contains(doc.id)) continue;
 
       final other = doc.data();

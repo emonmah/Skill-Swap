@@ -13,14 +13,14 @@ class FollowedListScreen extends StatefulWidget {
 class _FollowedListScreenState extends State<FollowedListScreen> {
   final String currentUserId = FirebaseAuth.instance.currentUser!.uid;
 
-  // This function initiates the chat, similar to the old "Connect" button's logic
+  
   void _startChat(BuildContext context, String otherUserId) {
-    // Generate a consistent chatId for the two users
+    
     String chatId = currentUserId.compareTo(otherUserId) < 0
         ? "${currentUserId}_${otherUserId}"
         : "${otherUserId}_${currentUserId}";
     
-    // Create chat document if it doesn't exist
+    
     FirebaseFirestore.instance.collection('chats').doc(chatId).set({
       'participants': [currentUserId, otherUserId],
       'lastMessage': 'Chat started.',
@@ -46,7 +46,7 @@ class _FollowedListScreenState extends State<FollowedListScreen> {
         title: const Text("Following"),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        // Listen to the "following" subcollection of the current user
+       
         stream: FirebaseFirestore.instance
             .collection('users')
             .doc(currentUserId)
@@ -68,7 +68,7 @@ class _FollowedListScreenState extends State<FollowedListScreen> {
             itemBuilder: (context, index) {
               String followedUserId = followedDocs[index].id;
 
-              // Use a FutureBuilder to get the profile details of the followed user
+            
               return FutureBuilder<DocumentSnapshot>(
                 future: FirebaseFirestore.instance
                     .collection('users')
@@ -80,7 +80,7 @@ class _FollowedListScreenState extends State<FollowedListScreen> {
                   }
                   
                   if (!userSnapshot.data!.exists) {
-                    return const SizedBox.shrink(); // Hide if user data is missing
+                    return const SizedBox.shrink(); 
                   }
 
                   var userData = userSnapshot.data!.data() as Map<String, dynamic>;

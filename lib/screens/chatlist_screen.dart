@@ -49,8 +49,6 @@ class ChatListScreen extends StatelessWidget {
   }
 }
 
-/// ✅ NEW WIDGET: A dedicated StatelessWidget for a single chat list item.
-/// This is more robust and prevents state issues when the list reorders.
 class _ChatListItem extends StatelessWidget {
   final DocumentSnapshot chatDoc;
   final String currentUserId;
@@ -61,8 +59,7 @@ class _ChatListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final chatData = chatDoc.data() as Map<String, dynamic>?;
-    
-    // Safety check in case a chat document is malformed
+ 
     if (chatData == null) {
       return const SizedBox.shrink();
     }
@@ -79,11 +76,10 @@ class _ChatListItem extends StatelessWidget {
 
     final String lastMessage = chatData['lastMessage'] ?? "No messages yet.";
 
-    // This StreamBuilder listens for real-time updates to the other user's profile.
     return StreamBuilder<DocumentSnapshot>(
       stream: FirebaseFirestore.instance.collection("users").doc(otherUserId).snapshots(),
       builder: (context, userSnapshot) {
-        // Show a placeholder with the last message while user data loads.
+
         if (!userSnapshot.hasData || !userSnapshot.data!.exists) {
           return ListTile(
             leading: const CircleAvatar(),
